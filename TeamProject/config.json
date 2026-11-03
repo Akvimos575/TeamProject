@@ -1,0 +1,101 @@
+// Настройки MoonSweeperBot. Комментарии // разрешены.
+// Калибровка экрана (области HUD, цвета, чувствительность мыши) хранится отдельно в calibration.json.
+{
+  // Имя процесса игры без .exe (посмотреть в Диспетчере задач → Подробности).
+  // Если указано — бот ставится на паузу, когда окно игры не активно. Пусто — без проверки.
+  "GameProcessName": "",
+  "StartDelaySeconds": 5,
+  "PauseWhenGameNotFocused": true,
+
+  "Keys": {
+    "Forward": "W",
+    "Back": "S",
+    "Left": "A",
+    "Right": "D",
+    "Jump": "Space",
+    "Pack": "Q",
+    "Interact": "E",
+    "SectorBorders": "G",
+    // Toggle — G включает границы один раз; Scan — G нажимается, когда номер сектора не виден; None — не нажимать.
+    "SectorBordersMode": "Toggle",
+    // Фиксация поворота щётки (в игре L). Пусто — не нажимать.
+    "LockBrush": "",
+    "PauseHotkey": "F8",
+    "StopHotkey": "F9",
+    "SaveHotkey": "F10"
+  },
+
+  // OCR Windows. Язык должен быть установлен в Windows (для цифр подходит en-US).
+  "OcrLanguage": "en-US",
+  "OcrScale": 3,
+  // 0 — без бинаризации. Например 150: всё ярче 150 станет чёрным текстом на белом фоне.
+  "OcrThreshold": 0,
+  "OcrInvert": false,
+
+  // Cleaned — HUD показывает % очистки; DustRemaining — % оставшейся пыли.
+  "PercentMeaning": "Cleaned",
+  // Сектор засчитывается игрой, когда пыли осталось ≤1%.
+  "CleanThresholdPercent": 99.0,
+  "SoftThresholdPercent": 97.0,
+
+  // Направление обхода вокруг базы. Left — влево с точки зрения игрока, смотрящего от базы наружу.
+  "CircleDirection": "Left",
+  "TangentInwardBiasDeg": 6,
+  // 0 — без ограничения числа колец.
+  "MaxRings": 0,
+
+  // Ширина полосы чистки = сколько мс идти вбок между полосами (подбирается под ширину инструмента).
+  "LaneWidthMs": 350,
+  "LaneMaxMs": 20000,
+  "StrafeToEdgeMaxMs": 10000,
+  "BackoffMaxMs": 3000,
+  "MaxPasses": 3,
+  "SectorTimeoutMinutes": 20,
+  "HoldUseButton": true,
+
+  "PollIntervalMs": 120,
+  "NavCorrectEveryMs": 1000,
+  "WalkToNextSectorTimeoutMs": 40000,
+  "HomeApproachMaxMs": 25000,
+  "TurnChunkCounts": 80,
+  "TurnChunkDelayMs": 3,
+  "FaceToleranceDeg": 3,
+  "StuckCheckMs": 1500,
+  "StuckDiffThreshold": 1.5,
+
+  // FillGauge — по шкале контейнера (нужна калибровка FillRegion), Timer — каждые UnloadEveryMinutes, Never — не разгружаться.
+  "UnloadMode": "Timer",
+  "FillUnloadFraction": 0.95,
+  "FillMeasure": "Bar",
+  "UnloadEveryMinutes": 5,
+  "PackBeforeUnload": false,
+  "InteractHoldMs": 300,
+  "InteractRepeat": 2,
+  // Часть текста подсказки у упаковщика (как она написана в вашей игре: "packager", "упаковщик"...).
+  "PackagerPromptText": "packager",
+  "PackagerSearchRings": 3,
+  "PackagerSearchStepMs": 500,
+
+  "ShopEnabled": true,
+  // true — копить на следующий по списку пункт, не покупая более дешёвые ниже по списку.
+  "ShopStrictOrder": true,
+
+  // Список покупок по приоритету (по гайдам: сначала вместимость и инструменты, потом экономика,
+  // дорогая автоматизация — в конце). Для каждого пункта: запишите макрос покупки
+  //   MoonSweeperBot record-macro <имя>
+  // проверьте цену в игре и включите пункт (Enabled: true). Пункты без цены или макроса пропускаются.
+  "Upgrades": [
+    { "Name": "Household Broom container", "Cost": 30, "Levels": 1, "Macro": "macros/broom_container.json", "Enabled": true,
+      "Note": "Примерно вдвое увеличивает объём пыли в инструменте" },
+    { "Name": "Better tool", "Cost": null, "Levels": 1, "Macro": "macros/better_tool.json", "Enabled": false,
+      "LaneWidthMs": 500, "SelectToolKey": "2", "Note": "Новый инструмент: укажите цену, ширину полосы и клавишу слота" },
+    { "Name": "Market Contracts", "Cost": null, "Levels": 3, "Macro": "macros/market_contracts.json", "Enabled": false },
+    { "Name": "Section Bonus", "Cost": null, "Levels": 3, "Macro": "macros/section_bonus.json", "Enabled": false },
+    { "Name": "Supplier Network", "Cost": null, "Levels": 3, "Macro": "macros/supplier_network.json", "Enabled": false },
+    { "Name": "Moon Exchange", "Cost": null, "Levels": 3, "Macro": "macros/moon_exchange.json", "Enabled": false },
+    { "Name": "Garage", "Cost": 200, "Levels": 1, "Macro": "macros/garage.json", "Enabled": false,
+      "Note": "Нужен для транспорта" },
+    { "Name": "J.O.O.N.A.S.", "Cost": 20000, "Levels": 1, "Macro": "macros/joonas.json", "Enabled": false,
+      "Note": "Робот-уборщик, поздняя игра" }
+  ]
+}
